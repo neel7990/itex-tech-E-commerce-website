@@ -14,9 +14,10 @@ import { Link } from "react-router-dom";
 import "braintree-web";
 import DropIn from "braintree-web-drop-in-react";
 // import { isAuthenticated } from "../auth/index";s
-
+import { listOrders} from "../admin/apiAdmin";
 
 import "./card.css";
+
 
 const { user, token } = isAuthenticated();
 
@@ -31,6 +32,40 @@ const Checkout = ({ products }) => {
     instance: {},
     address: "",
   });
+
+
+  const Orders = () => 
+
+{
+
+  
+  const [orders, setOrders] = useState([]);
+  const [statusValues, setStatusValues] = useState([]);
+  const { user, token } = isAuthenticated();
+
+  const loadOrders = () => {
+    listOrders(user._id, token).then((data) => {
+      if (data && data.error) {
+        console.log(data.error);
+      } else {
+        setOrders(data);
+      }
+    });
+  };
+  return(
+    <>
+    {orders.map((o, oIndex) => {
+      return(
+         <div>
+         {o.transaction_id}
+         {o.status}
+          
+         </div>
+      )
+      })}
+      </>
+  )
+}
 
   const userId = isAuthenticated() && isAuthenticated().user._id;
   const token = isAuthenticated() && isAuthenticated().token;
@@ -329,7 +364,7 @@ useEffect(()=>{
                     <div className="row pt-5 mx-auto">
                       <div id="emailbolte">
                         <div className="col-8 form-group mx-auto">
-                            <input type="text" className="form-control" placeholder="Name" value="itextech" name="name"/>
+                            <input type="text" className="form-control" placeholder="Name" value={user.name} name="name"/>
                         </div>
                         <div className="col-8 form-group pt-2 mx-auto">
                             <input type="email" className="form-control" value={user.email} name="email"/>
@@ -338,12 +373,15 @@ useEffect(()=>{
                             <input type="text" className="form-control" placeholder="Subject" value="payment to itextech is confirmed" name="subject"/>
                         </div>
                         <div className="col-8 form-group pt-2 mx-auto">
-                            <textarea className="form-control" id="" cols="30" rows="8" placeholder="Your message" value="{$getTotal()} your payment was successfull" name="message"></textarea>
+                            <textarea className="form-control" id="" cols="30" rows="8" placeholder="Your message" value={getTotal()} name="amount"></textarea>
+                        </div>
+                        <div className="col-8 form-group pt-2 mx-auto">
+                            <textarea className="form-control" id="" cols="30" rows="8" placeholder="Your message" value={token} name="transaction"></textarea>
                         </div>
                         </div>
                         </div>
                         <div className="col-8 pt-3 mx-auto">
-                            <input type="submit" className="btn btn-info" value="send reciept on email"></input>  
+                            <input type="submit" className="btn btn-info" value="send receipt on email"></input>  
                         </div>
                     
                 </form> 
@@ -351,7 +389,7 @@ useEffect(()=>{
 
 
 
-      Thanks! Your payment was successful!
+      Thanks! Your payment was successful! 
     </div>
   );
 
@@ -362,7 +400,7 @@ useEffect(()=>{
     <div>
       
       <h3>
-        Total:<span className="lead text-success">${getTotal()}</span>
+        Total:<span className="lead text-success">${getTotal()}  </span> 
       </h3>
       <br></br>
       
