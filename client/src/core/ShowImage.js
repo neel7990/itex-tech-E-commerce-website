@@ -8,6 +8,7 @@ const ShowImage = ({ item, url }) => {
         alt={item.name}
         className="mb-3"
         style={{ maxHeight: "156px", maxWidth: "220px" }}
+       //calling out api
         src={`${API}/${url}/photo/${item._id}`}
         loader={
           <div className="ui placeholder">
