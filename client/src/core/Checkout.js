@@ -19,11 +19,19 @@ import { listOrders} from "../admin/apiAdmin";
 
 import "./card.css";
 import { result } from "lodash";
-
+import moment from "moment";
 
 const { user, token } = isAuthenticated();
 
+const chit= moment().format("MMDDYYYYHHmmss");
+const m = moment();
 
+const ms = m.milliseconds() ;
+const ls= ms + 1000*(chit);
+// let ts=ls.tostring();
+const result= "S"+ls+moment().format("dd");
+// console.log(ls);
+// console.log(result);
 
 const Checkout = ({ products }) => {
   const [data, setData] = useState({
@@ -32,42 +40,50 @@ const Checkout = ({ products }) => {
     clientToken: null,
     error: "",
     instance: {},
-    address: "",
+    // address: "",
+    phoneno:"",   
+    city: "",
+    zip: "",
+    streetadd: "", 
+    aptsuit: "", 
+    landmark:"",
+    otrek:"",
+    state: "",            //phone check1 (pch1)
   });
 
 
-  const Orders = () => 
+//   const Orders = () => 
 
-{
+// {
 
   
-  const [orders, setOrders] = useState([]);
-  const [statusValues, setStatusValues] = useState([]);
-  const { user, token } = isAuthenticated();
+//   const [orders, setOrders] = useState([]);
+//   const [statusValues, setStatusValues] = useState([]);
+//   const { user, token } = isAuthenticated();
 
-  const loadOrders = () => {
-    listOrders(user._id, token).then((data) => {
-      if (data && data.error) {
-        console.log(data.error);
-      } else {
-        setOrders(data);
-      }
-    });
-  };
-  return(
-    <>
-    {orders.map((o, oIndex) => {
-      return(
-         <div>
-         {o.transaction_id}
-         {o.status}
+//   const loadOrders = () => {
+//     listOrders(user._id, token).then((data) => {
+//       if (data && data.error) {
+//         console.log(data.error);
+//       } else {
+//         setOrders(data);
+//       }
+//     });
+//   };
+//   return(
+//     <>
+//     {orders.map((o, oIndex) => {
+//       return(
+//          <div>
+//          {o.transaction_id}
+//          {o.status}
           
-         </div>
-      )
-      })}
-      </>
-  )
-}
+//          </div>
+//       )
+//       })}
+//       </>
+//   )
+// }
 
   const userId = isAuthenticated() && isAuthenticated().user._id;
   const token = isAuthenticated() && isAuthenticated().token;
@@ -157,9 +173,42 @@ useEffect(()=>{
   setCountry(countries);
 },[])
 
-  const handleAddress = (event) => {
-    setData({ ...data, address: event.target.value });
+  // const handleAddress = (event) => {
+  //   setData({ ...data, address: event.target.value });
+  // };
+
+  const handlePhone = (event) => {
+    setData({ ...data, phoneno: event.target.value });
   };
+
+  // phoneno:"",   
+  //   city: "",
+  //   zip: "",
+  //   streetadd: "", 
+  //   aptsuit: "", 
+  //   state: "",  
+
+  const handleAptsuit = (event) => {
+    setData({ ...data, aptsuit: event.target.value });
+  };
+  const handleCity = (event) => {
+    setData({ ...data, city: event.target.value });
+  };
+  const handleZip = (event) => {
+    setData({ ...data, zip: event.target.value });
+  };
+  const handleState = (event) => {
+    setData({ ...data, state: event.target.value });
+  };
+  const handlestreetadd = (event) => {
+    setData({ ...data, streetadd: event.target.value });
+  };
+  const handleLandmark = (event) => {
+    setData({ ...data, landmark: event.target.value });
+  };
+  // const handleOtrek = (event) => {
+  //   setData({ ...data, otrek: event.target.value });
+  // };
 
   const getTotal = () => {
     return products.reduce((currentValue, nextValue) => {
@@ -178,7 +227,17 @@ useEffect(()=>{
       </Link>
     );
   };
-  let delAddress = data.address;
+  // let delAddress = data.address;
+  let delphone = data.phoneno;
+  let delcity = data.city;
+  let delzip  = data.zip;
+  let delstreetadd = data.streetadd;
+  let delaptsuit = data.aptsuit;
+  let delstate = data.state;
+  let dellandmark=data.landmark;
+
+
+
   const buy = () => {
     let NAME = document.getElementById("showhide");
     NAME.className = "ui primary loading button fluid";
@@ -213,7 +272,18 @@ useEffect(()=>{
               products: products,
               transaction_id: response.transaction.id,
               amount: response.transaction.amount,
-              address: delAddress,
+              // address: delAddress,
+              phoneno: delphone,
+              
+              // phoneno:"",   
+              city: delcity,
+              zip: delzip,
+              streetadd: delstreetadd, 
+              aptsuit: delaptsuit, 
+              state: delstate,  
+              landmark:dellandmark,
+              otrek:result,
+
             };
 
             createOrder(userId, token, createOrderData)
@@ -245,10 +315,10 @@ useEffect(()=>{
     <div onBlur={() => setData({ ...data, error: "" })}>
       {data.clientToken !== null && products.length > 0 ? (
         <>
-        {/* <div> */}
-          <div onChange={handleAddress}
-          // className="form-control"
-          // value={data.address}
+        <form 
+          // onChange={handleAddress}
+            className="col-xs-6"
+           // value={data.address}
           >
             {/* <label className="text-muted">Delivery address:</label> */}
             {/* <textarea
@@ -257,72 +327,65 @@ useEffect(()=>{
               value={data.address}
               placeholder="Type your delivery address here..."
             /> */}
-          {/* </div> */}
-          
-               
-          {/* <div className="col-xs-12">
-           
-           
-               
-           <input type="text" className="form-control input-lg" placeholder="City" />
-           </div> */}
-         </div>
+            {/* </div> */}
+
+
+
+            <div class="col-xs-6">
+
+<input onChange={handlePhone} class="form-control input-lg" type="number" pattern="[0-9]*" inputMode="numeric" placeholder="Phone Number"/>
+<br/>
+</div>
+{/* <div className="emailbolte" style={{display:"none"}}> */}            <div class="col-xs-6">
+
+{/* <input onChange={handleOtrek} class="form-control input-lg" value={result} name="transaction"/> */}
+</div>
+
+          <div className="col-xs-6">
+
+            <input onChange={handleZip} className="form-control input-lg" type="number" pattern="[0-9]*" inputmode="numeric" placeholder="Zip Code"  />
+          </div>
+          <br></br>
+          <div className="col-xs-6">
+
+            <input onChange={handlestreetadd} className="form-control input-lg" type="text" pattern="[0-9]*" inputmode="numeric" placeholder="Street Address" />
+          </div>
+          <br></br>
+          <div className="col-xs-6">
+
+            <input  onChange={handleAptsuit} className="form-control input-lg" type="text" placeholder="Apt, Suite, etc."/>
+          <br/>
+          </div>
+          <div className="col-xs-6">
+
+            <input  onChange={handleLandmark} className="form-control input-lg" type="text" placeholder="Landmark"/>
+          </div>
+          <br></br>
+          <div className="col-xs-12">
+          <input onChange={handleCity} type="text" className="form-control input-lg" placeholder="Town/City" />
+
+            <br />
+          </div>
+          <div className="country">
+
+            <select  id="ddlCountry" className="form-control select-class" placeholder="State"  >
+              <option onChange={handleState} value="0">Select State</option>
+              {
+                country &&
+                  country !== undefined ?
+                  country.map((ctr, index) => {
+                    return (
+                      <option  key={index} value={ctr.id}>{ctr.name}</option>
+                    )
+
+                  })
+                  : "no country"
+
+              }
+            </select>
+          </div>
+          <br></br></form>
          
-         <div className="col-xs-6">
-          
-          <input className="form-control input-lg" type="text" pattern="[0-9]*" inputmode="numeric" placeholder="Full Name" />
-        </div>
-        <br></br>
-         <div class="col-xs-6">
-          
-          <input class="form-control input-lg" type="number" pattern="[0-9]*" inputmode="numeric" placeholder="Phone Number" />
-        </div>
-        <br></br>
-           <div className="col-xs-6">
-          
-           <input className="form-control input-lg" type="number" pattern="[0-9]*" inputmode="numeric" placeholder="Zip Code" />
-         </div>
-         <br></br>
-           <div className="col-xs-6">
-          
-           <input className="form-control input-lg" type="text" pattern="[0-9]*" inputmode="numeric" placeholder="Street Address" />
-         </div>
-         <br></br>
-           <div className="col-xs-6">
-          
-           <input className="form-control input-lg" type="text" pattern="[0-9]*" inputmode="numeric" placeholder="Apt, Suite, etc." />
-         </div>
-
-         <br></br>
-         <div className="col-xs-6">
-          
-           <input className="form-control input-lg" type="text" pattern="[0-9]*" inputmode="numeric" placeholder="Landmark" />
-         </div>
-         <br></br>
-         <div className="col-xs-6">
-          
-           <input className="form-control input-lg" type="text" pattern="[0-9]*" inputmode="numeric" placeholder="Town/City" />
-         </div>
-         <br></br>
-         <div className="country">
-    
-    <select id="ddlCountry" className="form-control select-class" placeholder="State"  >
-     <option value="0">Select State</option>
-     {
-    country &&
-    country !==undefined?
-    country.map((ctr,index)=>{
-      return(
-        <option key={index}value={ctr.id}>{ctr.name}</option>
-      )
-
-    })
-    :"no country"
-
-  }
-        </select>
-  </div>
-  <br></br>
           
          
          <div class="col-xs-6">

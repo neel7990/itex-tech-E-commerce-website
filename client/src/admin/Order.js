@@ -111,6 +111,9 @@ console.log(orders);
                     <li className="list-group-item">
                       Transaction ID: {o.transaction_id}
                     </li>
+                    <li className="list-group-item">
+                      Order-Transaction-ID: {o.otrek}
+                    </li>
                     <li className="list-group-item">Amount: ${o.amount}</li>
                     <li className="list-group-item">
                       Ordered by: {o.user?o.user.name:"unknown"}
