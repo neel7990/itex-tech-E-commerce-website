@@ -16,7 +16,9 @@ import DropIn from "braintree-web-drop-in-react";
 // import { isAuthenticated } from "../auth/index";s
 import { listOrders} from "../admin/apiAdmin";
 
+
 import "./card.css";
+import { result } from "lodash";
 
 
 const { user, token } = isAuthenticated();
@@ -89,18 +91,7 @@ const Checkout = ({ products }) => {
 
   
 
-    function sendEmail(e) {
-        e.preventDefault();
-
-    emailjs.sendForm('service_1l5fm5f', 'template_nbfdebr', e.target, 'HBroR6S0G3q_o4oow')
-        .then((result) => {
-            console.log(result.text);
-        }, (error) => {
-            console.log(error.text);
-        });
-        e.target.reset()
-    }
-
+ 
   
 
 
@@ -256,7 +247,7 @@ useEffect(()=>{
         <>
         {/* <div> */}
           <div onChange={handleAddress}
-          className="form-control"
+          // className="form-control"
           // value={data.address}
           >
             {/* <label className="text-muted">Delivery address:</label> */}
@@ -269,13 +260,24 @@ useEffect(()=>{
           {/* </div> */}
           
                
-                    
+          {/* <div className="col-xs-12">
+           
+           
+               
            <input type="text" className="form-control input-lg" placeholder="City" />
-         </div>
-         <div className="col-xs-12">
-           <br />
+           </div> */}
          </div>
          
+         <div className="col-xs-6">
+          
+          <input className="form-control input-lg" type="text" pattern="[0-9]*" inputmode="numeric" placeholder="Full Name" />
+        </div>
+        <br></br>
+         <div class="col-xs-6">
+          
+          <input class="form-control input-lg" type="number" pattern="[0-9]*" inputmode="numeric" placeholder="Phone Number" />
+        </div>
+        <br></br>
            <div className="col-xs-6">
           
            <input className="form-control input-lg" type="number" pattern="[0-9]*" inputmode="numeric" placeholder="Zip Code" />
@@ -289,6 +291,17 @@ useEffect(()=>{
            <div className="col-xs-6">
           
            <input className="form-control input-lg" type="text" pattern="[0-9]*" inputmode="numeric" placeholder="Apt, Suite, etc." />
+         </div>
+
+         <br></br>
+         <div className="col-xs-6">
+          
+           <input className="form-control input-lg" type="text" pattern="[0-9]*" inputmode="numeric" placeholder="Landmark" />
+         </div>
+         <br></br>
+         <div className="col-xs-6">
+          
+           <input className="form-control input-lg" type="text" pattern="[0-9]*" inputmode="numeric" placeholder="Town/City" />
          </div>
          <br></br>
          <div className="country">
@@ -310,10 +323,7 @@ useEffect(()=>{
         </select>
   </div>
   <br></br>
-           <div class="col-xs-6">
           
-           <input class="form-control input-lg" type="number" pattern="[0-9]*" inputmode="numeric" placeholder="Phone Number" />
-         </div>
          
          <div class="col-xs-6">
            <br />
@@ -334,6 +344,7 @@ useEffect(()=>{
             className="btn btn-success btn-block"
           >
             Pay
+            
           </button>
         </div>
         </>
@@ -359,7 +370,7 @@ useEffect(()=>{
 
 
 
-<div className="container">
+{/* <div className="container">
             <form onSubmit={sendEmail}>
                     <div className="row pt-5 mx-auto">
                       <div id="emailbolte">
@@ -385,13 +396,44 @@ useEffect(()=>{
                         </div>
                     
                 </form> 
-            </div>
+            </div> */}
 
 
 
       Thanks! Your payment was successful! 
+      { sendEmail()}
     </div>
+    
   );
+  function sendEmail() {
+    // e.preventDefault();
+  var nitr={
+    name:user.name,
+    email:user.email,
+    amount:getTotal(),
+    transaction:token,
+    subject:"payment to sabekuch is confirmed"
+
+  } 
+
+emailjs.send('service_b9tlxgx', 'template_nypzru8', nitr, 'MiQovw12qV7DDkO_7')
+// emailjs.send('service_ftcs57f', 'template_ti4y6q1', nitr, 'aoAA_aaQTmEYp-YLH')
+
+    .then((result) => {
+        console.log(result.text);
+    }, (error) => {
+        console.log(error.text);
+
+    });
+    // e.reset()
+    nitr={
+      email:''
+    }
+
+}
+
+
+
 
   const showLoading = (loading) =>
     loading && <h2 className="text-danger">Loading...</h2>;
