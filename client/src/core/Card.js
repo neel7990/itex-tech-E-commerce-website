@@ -16,9 +16,9 @@ const Card = ({
   const [count, setCount] = useState(product.count)
   const showStock = (qu) => {
     return qu > 0 ? (
-      <span className="badge badge-primary badge-pill p-2">In Stock</span>
+      <span  id="s-1"className="badge badge-primary badge-pill p-2">In Stock</span>
     ) : (
-      <span className="badge badge-danger badge-pill p-2">Out of Stock</span>
+      <span id="s-2"className="badge badge-danger badge-pill p-2">Out of Stock</span>
     )
   }
   const addToCart = () => {
@@ -43,7 +43,7 @@ const Card = ({
       )
     } else {
       return (
-        cartButton && <div className="ui negative button">Out of Stock</div>
+        cartButton && <div id="out" className="ui negative button">Out of Stock</div>
       )
     }
   }
@@ -86,39 +86,50 @@ const Card = ({
   }
   //console.log(product);
   return (
-    <div className="card h-100">
-      <div className="card-header bg-dark text-white">{product.name}</div>
+    <div className="max-w-sm bg-stone-300 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 " >
+      <div  className="card-header bg-dark text-white" style={{display:"flex", justifyContent:"center", fontWeight: "bolder"}}>{product.name} </div>
       <div className="card-body">
+        
         {shouldRedirect(redirect)}
-        <div className="card-img-top">
+        
+        <div id ="image"className="p-8 rounded-t-lg responsive">
           <ShowImage item={product} url="product" />
         </div>
+        
         <p className="lead mt-2 responsive">
           {de === false
             ? product.description.substring(0, 60) + '...'
             : product.description}
         </p>
-        <p className="black-10 lead text-success">${product.price}</p>
-        <p className="black-9">
+        <p id ="badge-1"className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white responsive">${product.price}</p>
+        <p id="badge-2"className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white responsive">
           Category: {product.category && product.category.name}
         </p>
-        <p className="black-8">
-          Added on {moment(product.createdAt).fromNow()}{' '}
+        <p id="badge-3"className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white responsive">
+          Added:{moment(product.createdAt).fromNow()}{' '}
         </p>
         {showStock(product.quantity)} <br />
         <br />
         <div className="ui two buttons">
           {showButton && (
-            <Link
+            <Link id= "btn-1"
               className="ui basic green button"
               to={`/product/${product._id}`}
             >
               View Product
             </Link>
           )}
-          {showAddToCartButton(product.quantity)}
+           {/* <div className="ui basic green button" style={{borderRadius:"20px"}}><Link id= "btn-1"
+              className="ui basic green button"
+              to={`/product/${product._id}`}
+            >
+              View Product
+            </Link> */}
+            {/* </div> */}
+                  {showAddToCartButton(product.quantity)}     
+       
         </div>
-        <hr />
+        {/* <hr /> */}
         {showCartUpdate()}
         {showCartRemove()}
       </div>

@@ -1,3 +1,4 @@
+@import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
 .card-btn-1{
     border-radius: 20px;
     
@@ -5,3 +6,43 @@
 #emailbolte{
     display:none;
 }
+
+#btt, #btn-1,#out{
+    border-radius: 20px;
+}
+#badge-1, #badge-2, #badge-3{
+    display: flex;
+    justify-content: center;
+    background: none;
+    font-style:oblique;
+    font-weight: 700;
+    /* background:linear-gradient(#777, white); */
+    
+}
+#s-1, #s-2{
+    display: flex;
+    justify-content: center;
+    width: 30%;
+    align-items: center;
+    
+}
+#image{
+    display: flex;
+    justify-content: center;
+  
+   
+   padding: 1.25rem;
+   width: 100%;
+   
+   /* -webkit-transition: opacity 0.35s;
+  transition: opacity 0.35s; */
+ 
+    /* vertical-align: top;
+     */
+}
+/* .card-body{
+    
+    padding: 0;
+    
+} */
+
