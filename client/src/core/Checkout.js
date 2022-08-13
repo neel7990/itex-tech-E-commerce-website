@@ -34,6 +34,28 @@ import moment from "moment";
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const { user, token } = isAuthenticated();
 
 // console.log(moment().format("MMDDYYYYHHmmss"));
@@ -119,39 +141,39 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
 
 
 
-  function sendEmail(e) {
-    // e.preventDefault();
-  //   <div id="emailbolte">
-  //   <div className="col-8 form-group mx-auto">
-  //     <input type="text" className="form-control" placeholder="Name" value={user.name} name="name" />
-  //   </div>
-  //   <div className="col-8 form-group pt-2 mx-auto">
-  //     <input type="email" className="form-control" value={user.email} name="email" />
-  //   </div>
-  //   <div className="col-8 form-group pt-2 mx-auto">
-  //     <input type="text" className="form-control" placeholder="Subject" value="payment to itextech is confirmed" name="subject" />
-  //   </div>
-  //   <div className="col-8 form-group pt-2 mx-auto">
-  //     <textarea className="form-control" id="" cols="30" rows="8" placeholder="Your message" value={getTotal()} name="amount"></textarea>
-  //   </div>
-  //   <div className="col-8 form-group pt-2 mx-auto">
-  //     <textarea className="form-control" id="" cols="30" rows="8" placeholder="Your message" value={result} name="transaction"></textarea>
-  //   </div>
-  // </div>
-    emailjs.send('service_ftcs57f', 'template_ti4y6q1', e.target, 'aoAA_aaQTmEYp-YLH')
-      .then((result) => {
-        console.log(result.text);
-      }, (error) => {
-        console.log(error.text);
-      });
-    e.target.reset()
-  }
+//   function sendEmail(e) {
+//     // e.preventDefault();
+//   //   <div id="emailbolte">
+//   //   <div className="col-8 form-group mx-auto">
+//   //     <input type="text" className="form-control" placeholder="Name" value={user.name} name="name" />
+//   //   </div>
+//   //   <div className="col-8 form-group pt-2 mx-auto">
+//   //     <input type="email" className="form-control" value={user.email} name="email" />
+//   //   </div>
+//   //   <div className="col-8 form-group pt-2 mx-auto">
+//   //     <input type="text" className="form-control" placeholder="Subject" value="payment to itextech is confirmed" name="subject" />
+//   //   </div>
+//   //   <div className="col-8 form-group pt-2 mx-auto">
+//   //     <textarea className="form-control" id="" cols="30" rows="8" placeholder="Your message" value={getTotal()} name="amount"></textarea>
+//   //   </div>
+//   //   <div className="col-8 form-group pt-2 mx-auto">
+//   //     <textarea className="form-control" id="" cols="30" rows="8" placeholder="Your message" value={result} name="transaction"></textarea>
+//   //   </div>
+//   // </div>
+//     emailjs.send('service_ftcs57f', 'template_ti4y6q1', e.target, 'aoAA_aaQTmEYp-YLH')
+//       .then((result) => {
+//         console.log(result.text);
+//       }, (error) => {
+//         console.log(error.text);
+//       });
+//     e.target.reset()
+//   }
 
-  function submit_form(){
-    var form = document.getElementById("my_form");
-    form.submit();
-    alert("Your Message Sent");
-}
+//   function submit_form(){
+//     var form = document.getElementById("my_form");
+//     form.submit();
+//     alert("Your Message Sent");
+// }
 
 
 
@@ -524,6 +546,19 @@ function refreshPage() {
   window.location.reload(false);
 }
 
+const buttonRef = useRef("accept-button");
+  const [accepted, setAccepted] = useState(false);
+
+  const acceptCall = (e) => {
+    alert("Accepted");
+  };
+
+  const fireEvent = (el, eventName) => {
+    const event = new Event(eventName, { bubbles: true });
+    el.dispatchEvent(event);
+  };
+
+ 
 
 const EmailSend = () => {
   
@@ -586,7 +621,9 @@ const EmailSend = () => {
             />
           </div> */}
           
-          <button id="rdxer" onClick={onSubmit} className="btn btn-primary btn-block " style={{marginLeft:"100px"}}>Send Mail</button>
+          
+          <button id="rdxer" onClick={onSubmit} ref={buttonRef} name="accept" className="btn btn-primary btn-block ">Confirm Your ORDER</button>
+          {/* {ReactDOM.getElementById("rdxer").click()} */}
 
        {/* {document.getElementById('rdxer').click} */}
       </div>
@@ -617,7 +654,19 @@ const EmailSend = () => {
       style={{ display: success ? "" : "none" }}
     >
    {/* {refreshPage() } */}
-
+   
+{
+   useEffect(() => {
+    if (!accepted) {
+      setTimeout(() => {
+        if (buttonRef.current instanceof Element) {
+          setAccepted(true);
+          fireEvent(buttonRef.current, "click");
+        }
+      }, 100);
+    }
+  }, [accepted])
+}
 {/* 
 
       <div className="container">
