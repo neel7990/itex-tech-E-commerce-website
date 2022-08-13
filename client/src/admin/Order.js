@@ -111,6 +111,9 @@ console.log(orders);
                     <li className="list-group-item">
                       Transaction ID: {o.transaction_id}
                     </li>
+                    <li className="list-group-item">
+                      Order-Transaction-ID: {o.otrek}
+                    </li>
                     <li className="list-group-item">Amount: ${o.amount}</li>
                     <li className="list-group-item">
                       Ordered by: {o.user?o.user.name:"unknown"}
@@ -120,10 +123,10 @@ console.log(orders);
                       Ordered on: {o.createdAt}
                     </li>
                     <li className="list-group-item">
-                      Delivery address: {o.address}
+                      Delivery address: {o.aptsuit} {o.streetadd} {o.landmark} {o.city} {o.state} {o.zip}
                     </li>
                     <li className="list-group-item">
-                      Phone Number: {o.phoneNumber}
+                      Phone Number: {o.phoneno}
                     </li>
                   </ul>
 

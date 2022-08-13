@@ -5,3 +5,17 @@
 #emailbolte{
     display:none;
 }
+.img-fluid {
+    align-content: center !important;
+    align-self: center;
+    display:flex;
+    flex-direction: row;
+    flex-flow: column-reverse;
+}
+.img-fluid img{
+/*     align-content: center !important; */
+    align-self: center;
+    display:flex;
+    flex-direction: row;
+    flex-flow: column-reverse;
+}

@@ -90,9 +90,11 @@ const Card = ({
       <div className="card-header bg-dark text-white">{product.name}</div>
       <div className="card-body">
         {shouldRedirect(redirect)}
+        <div className='card_img'>
         <div className="card-img-top">
+          
           <ShowImage item={product} url="product" />
-        </div>
+        </div></div>
         <p className="lead mt-2 responsive">
           {de === false
             ? product.description.substring(0, 60) + '...'

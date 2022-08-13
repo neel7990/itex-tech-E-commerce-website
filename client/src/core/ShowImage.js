@@ -1,6 +1,7 @@
 import React from "react";
 import { Img } from "react-image";
 import {API} from "../config";
+import "./card.css";
 const ShowImage = ({ item, url }) => {
   return (
     <div className="img-fluid rounded text-center">

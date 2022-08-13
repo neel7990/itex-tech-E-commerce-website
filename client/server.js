@@ -7,6 +7,7 @@ const app = express();
 app.get("/_healthz", (request, response) => {
 	response.json({
 		message : "I am healthy"
+		
 	})
 })
 

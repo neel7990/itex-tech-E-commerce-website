@@ -18,6 +18,8 @@ import Orders from './admin/Order';
 import Profile from './user/Profile';
 import ManageProducts from './admin/ManageProduct';
 import UpdateProduct from './admin/UpdateProduct';
+// import minimal from './core/minimal';
+
 
 const Routes = () => {
 	return (
@@ -34,6 +36,8 @@ const Routes = () => {
 		         <AdminRoute path="/create/product" exact component={AddProduct} />
 		         <Route path = "/product/:productId" exact component = {Product} />
 		         <Route path = "/cart" exact component = {Cart} />
+				 {/* check */}
+				 {/* <Route path = "/minimal" exact component = {minimal} />     */}
 		         <AdminRoute path="/admin/orders" exact component={Orders} />
 		         <PrivateRoute path="/profile/:userId" exact component={Profile} />
 		         <PrivateRoute path="/admin/products" exact component={ManageProducts} />
